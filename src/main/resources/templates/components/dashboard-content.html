@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<!-- Admin Dashboard -->
+<div th:fragment="admin-dashboard" sec:authorize="hasRole('ADMIN')">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Admin Dashboard</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-white bg-danger mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Users</h5>
+                    <p class="card-text display-4">156</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-warning mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">System Health</h5>
+                    <p class="card-text display-4">98%</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Active Sessions</h5>
+                    <p class="card-text display-4">24</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin specific content -->
+    <div class="alert alert-danger">
+        <h5><i class="fas fa-shield-alt"></i> Administrator Privileges</h5>
+        <p>You have full system access including user management, system settings, and analytics.</p>
+    </div>
+</div>
+
+<!-- Manager Dashboard -->
+<div th:fragment="manager-dashboard" sec:authorize="hasRole('MANAGER')">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Manager Dashboard</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Team Members</h5>
+                    <p class="card-text display-4">25</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-warning mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Pending Approvals</h5>
+                    <p class="card-text display-4">8</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Team Performance</h5>
+                    <p class="card-text display-4">92%</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manager specific content -->
+    <div class="alert alert-primary">
+        <h5><i class="fas fa-user-tie"></i> Manager Privileges</h5>
+        <p>You can manage your team, approve leaves, and view performance reports.</p>
+    </div>
+</div>
+
+<!-- Employee Dashboard -->
+<div th:fragment="employee-dashboard" sec:authorize="hasRole('EMPLOYEE')">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Employee Dashboard</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Available Leaves</h5>
+                    <p class="card-text display-4">12</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">This Month Hours</h5>
+                    <p class="card-text display-4">160</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-warning mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Tasks Due</h5>
+                    <p class="card-text display-4">3</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Employee specific content -->
+    <div class="alert alert-success">
+        <h5><i class="fas fa-user"></i> Employee Access</h5>
+        <p>You can manage your profile, apply for leaves, and view your attendance records.</p>
+    </div>
+</div>
+
+<a th:href="@{/test-auth}">Test Auth</a>
+
+
+</body>
+</html>

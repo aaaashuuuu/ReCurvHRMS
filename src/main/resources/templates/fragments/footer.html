@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<!-- Footer Fragment -->
+<footer th:fragment="footer" class="footer mt-auto py-3 bg-light">
+  <div class="container">
+            <span class="text-muted">
+                &copy; 2024 HRMS -
+                <span sec:authorize="hasRole('ADMIN')">Admin Access</span>
+                <span sec:authorize="hasRole('MANAGER')">Manager Access</span>
+                <span sec:authorize="hasRole('EMPLOYEE')">Employee Access</span>
+            </span>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+
+<!-- Admin Navbar -->
+<nav th:fragment="admin-navbar" class="navbar navbar-expand-lg navbar-dark bg-danger">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <i class="fas fa-users"></i> HRMS - Administrator
+        </a>
+        <!-- ... rest of admin navbar ... -->
+    </div>
+</nav>
+
+<!-- Manager Navbar -->
+<nav th:fragment="manager-navbar" class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <i class="fas fa-users"></i> HRMS - Manager
+        </a>
+        <!-- ... rest of manager navbar ... -->
+    </div>
+</nav>
+
+<!-- Employee Navbar -->
+<nav th:fragment="employee-navbar" class="navbar navbar-expand-lg navbar-dark bg-success">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <i class="fas fa-users"></i> HRMS - Employee
+        </a>
+        <!-- ... rest of employee navbar ... -->
+    </div>
+</nav>
+
+<!-- Main navbar fragment that selects the right one -->
+<nav th:fragment="navbar">
+    <div th:replace="fragments/navbar :: admin-navbar" sec:authorize="hasRole('ADMIN')"></div>
+    <div th:replace="fragments/navbar :: manager-navbar" sec:authorize="hasRole('MANAGER')"></div>
+    <div th:replace="fragments/navbar :: employee-navbar" sec:authorize="hasRole('EMPLOYEE')"></div>
+    <div th:replace="fragments/navbar :: default-navbar"
+         sec:authorize="isAuthenticated() and !hasAnyRole('ADMIN', 'MANAGER', 'EMPLOYEE')"></div>
+</nav>
+
+</body>
+</html>
