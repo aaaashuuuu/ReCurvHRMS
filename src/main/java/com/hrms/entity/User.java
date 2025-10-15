@@ -1,20 +1,14 @@
 package com.hrms.entity;
 
+
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-
 @Entity
 public class User {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -64,12 +58,20 @@ public class User {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
     
+    
+    
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
 	public User(Integer userId, String firstName, String lastName, String email, String hashPassword,
 			String contactNumber, Role role, Department department, Designation designation, LocalDate dateOfJoining,
 			LocalDate dateOfBirth, String address, String profilePicture, User reportingManager, String aboutEmployee,
 			Status status, String gender, String createdBy, String modifiedBy, LocalDateTime createdAt,
 			LocalDateTime modifiedAt) {
-	//	super();
+		super();
 		this.userId = userId;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -93,176 +95,228 @@ public class User {
 		this.modifiedAt = modifiedAt;
 	}
 
-	public User() {
-		super();
-	}
 
 	public Integer getUserId() {
 		return userId;
 	}
 
+
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
+
 
 	public String getFirstName() {
 		return firstName;
 	}
 
+
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
+
 
 	public String getLastName() {
 		return lastName;
 	}
 
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
 
 	public String getEmail() {
 		return email;
 	}
 
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 
 	public String getHashPassword() {
 		return hashPassword;
 	}
 
+
 	public void setHashPassword(String hashPassword) {
 		this.hashPassword = hashPassword;
 	}
+
 
 	public String getContactNumber() {
 		return contactNumber;
 	}
 
+
 	public void setContactNumber(String contactNumber) {
 		this.contactNumber = contactNumber;
 	}
+
 
 	public Role getRole() {
 		return role;
 	}
 
+
 	public void setRole(Role role) {
 		this.role = role;
 	}
+
 
 	public Department getDepartment() {
 		return department;
 	}
 
+
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
+
 
 	public Designation getDesignation() {
 		return designation;
 	}
 
+
 	public void setDesignation(Designation designation) {
 		this.designation = designation;
 	}
+
 
 	public LocalDate getDateOfJoining() {
 		return dateOfJoining;
 	}
 
+
 	public void setDateOfJoining(LocalDate dateOfJoining) {
 		this.dateOfJoining = dateOfJoining;
 	}
+
 
 	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
 
+
 	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
+
 
 	public String getAddress() {
 		return address;
 	}
 
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
 
 	public String getProfilePicture() {
 		return profilePicture;
 	}
 
+
 	public void setProfilePicture(String profilePicture) {
 		this.profilePicture = profilePicture;
 	}
+
 
 	public User getReportingManager() {
 		return reportingManager;
 	}
 
+
 	public void setReportingManager(User reportingManager) {
 		this.reportingManager = reportingManager;
 	}
+
 
 	public String getAboutEmployee() {
 		return aboutEmployee;
 	}
 
+
 	public void setAboutEmployee(String aboutEmployee) {
 		this.aboutEmployee = aboutEmployee;
 	}
+
 
 	public Status getStatus() {
 		return status;
 	}
 
+
 	public void setStatus(Status status) {
 		this.status = status;
 	}
+
 
 	public String getGender() {
 		return gender;
 	}
 
+
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
+
 
 	public String getCreatedBy() {
 		return createdBy;
 	}
 
+
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
+
 
 	public String getModifiedBy() {
 		return modifiedBy;
 	}
 
+
 	public void setModifiedBy(String modifiedBy) {
 		this.modifiedBy = modifiedBy;
 	}
+
 
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
 
+
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
+
 
 	public LocalDateTime getModifiedAt() {
 		return modifiedAt;
 	}
 
+
 	public void setModifiedAt(LocalDateTime modifiedAt) {
 		this.modifiedAt = modifiedAt;
 	}
+
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", hashPassword=" + hashPassword + ", contactNumber=" + contactNumber + ", role=" + role
+				+ ", department=" + department + ", designation=" + designation + ", dateOfJoining=" + dateOfJoining
+				+ ", dateOfBirth=" + dateOfBirth + ", address=" + address + ", profilePicture=" + profilePicture
+				+ ", reportingManager=" + reportingManager + ", aboutEmployee=" + aboutEmployee + ", status=" + status
+				+ ", gender=" + gender + ", createdBy=" + createdBy + ", modifiedBy=" + modifiedBy + ", createdAt="
+				+ createdAt + ", modifiedAt=" + modifiedAt + "]";
+	}
+    
+    
 
 }

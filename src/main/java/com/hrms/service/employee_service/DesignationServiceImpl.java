@@ -34,4 +34,9 @@ public class DesignationServiceImpl implements IDesignationService {
     public void deleteDesignationById(Integer id) {
         designationRepository.deleteById(id);
     }
+
+    @Override
+    public List<Designation> getDesignationsByDepartment(Integer deptId) {
+        return designationRepository.findByDepartmentDepartmentId(deptId);
+    }
 }

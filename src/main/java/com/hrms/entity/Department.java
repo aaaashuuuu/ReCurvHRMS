@@ -1,6 +1,9 @@
 package com.hrms.entity;
+
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
+
 
 @Entity
 public class Department {
@@ -21,9 +24,27 @@ public class Department {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
     
+    
+    
+	@Override
+	public String toString() {
+		return "Department [departmentId=" + departmentId + ", departmentName=" + departmentName + ", status=" + status
+				+ ", createdBy=" + createdBy + ", modifiedBy=" + modifiedBy + ", createdAt=" + createdAt
+				+ ", modifiedAt=" + modifiedAt + "]";
+	}
+
+
+
+	public Department() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	public Department(Integer departmentId, String departmentName, Status status, String createdBy, String modifiedBy,
 			LocalDateTime createdAt, LocalDateTime modifiedAt) {
-	//	super();
+		super();
 		this.departmentId = departmentId;
 		this.departmentName = departmentName;
 		this.status = status;
@@ -31,12 +52,6 @@ public class Department {
 		this.modifiedBy = modifiedBy;
 		this.createdAt = createdAt;
 		this.modifiedAt = modifiedAt;
-	}
-	
-	
-	
-	public Department() {
-		super();
 	}
 
 
@@ -44,45 +59,85 @@ public class Department {
 	public Integer getDepartmentId() {
 		return departmentId;
 	}
+
+
+
 	public void setDepartmentId(Integer departmentId) {
 		this.departmentId = departmentId;
 	}
+
+
+
 	public String getDepartmentName() {
 		return departmentName;
 	}
+
+
+
 	public void setDepartmentName(String departmentName) {
 		this.departmentName = departmentName;
 	}
+
+
+
 	public Status getStatus() {
 		return status;
 	}
+
+
+
 	public void setStatus(Status status) {
 		this.status = status;
 	}
+
+
+
 	public String getCreatedBy() {
 		return createdBy;
 	}
+
+
+
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
+
+
+
 	public String getModifiedBy() {
 		return modifiedBy;
 	}
+
+
+
 	public void setModifiedBy(String modifiedBy) {
 		this.modifiedBy = modifiedBy;
 	}
+
+
+
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
+
+
+
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
+
+
+
 	public LocalDateTime getModifiedAt() {
 		return modifiedAt;
 	}
+
+
+
 	public void setModifiedAt(LocalDateTime modifiedAt) {
 		this.modifiedAt = modifiedAt;
 	}
+	
     
     
 

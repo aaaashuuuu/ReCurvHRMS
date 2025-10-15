@@ -10,4 +10,5 @@ public interface IDesignationService {
 	    Designation getDesignationById(Integer id);
 	    Designation saveDesignation(Designation designation);
 	    void deleteDesignationById(Integer id);
+		List<Designation> getDesignationsByDepartment(Integer deptId);
 }

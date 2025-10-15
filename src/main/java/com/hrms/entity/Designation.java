@@ -3,8 +3,10 @@ import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
+
 @Entity
 public class Designation {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,9 +29,21 @@ public class Designation {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
     
+    
+    
+	@Override
+	public String toString() {
+		return "Designation [designationId=" + designationId + ", designationName=" + designationName + ", department="
+				+ department + ", status=" + status + ", createdBy=" + createdBy + ", modifiedBy=" + modifiedBy
+				+ ", createdAt=" + createdAt + ", modifiedAt=" + modifiedAt + "]";
+	}
+	public Designation() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public Designation(Integer designationId, String designationName, Department department, Status status,
 			String createdBy, String modifiedBy, LocalDateTime createdAt, LocalDateTime modifiedAt) {
-	//	super();
+		super();
 		this.designationId = designationId;
 		this.designationName = designationName;
 		this.department = department;
@@ -38,9 +52,6 @@ public class Designation {
 		this.modifiedBy = modifiedBy;
 		this.createdAt = createdAt;
 		this.modifiedAt = modifiedAt;
-	}
-	public Designation() {
-		super();
 	}
 	public Integer getDesignationId() {
 		return designationId;
@@ -90,8 +101,6 @@ public class Designation {
 	public void setModifiedAt(LocalDateTime modifiedAt) {
 		this.modifiedAt = modifiedAt;
 	}
-	
-	
     
     
 }

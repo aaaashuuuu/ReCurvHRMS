@@ -1,7 +1,11 @@
 package com.hrms.entity;
 
 import jakarta.persistence.*;
+//import org.springframework.security.core.GrantedAuthority;
+//import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Role {
@@ -21,11 +25,19 @@ public class Role {
 
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-    
-    
+
+//    public List<GrantedAuthority> getAuthorities() {
+//        return List.of(new SimpleGrantedAuthority("ROLE_" + this.roleName));
+//    }
+
+	public Role() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public Role(Integer roleId, String roleName, Status status, String createdBy, String modifiedBy,
 			LocalDateTime createdAt, LocalDateTime modifiedAt) {
-		//super();
+		super();
 		this.roleId = roleId;
 		this.roleName = roleName;
 		this.status = status;
@@ -33,10 +45,6 @@ public class Role {
 		this.modifiedBy = modifiedBy;
 		this.createdAt = createdAt;
 		this.modifiedAt = modifiedAt;
-	}
-
-	public Role() {
-		super();
 	}
 
 	public Integer getRoleId() {
@@ -94,4 +102,14 @@ public class Role {
 	public void setModifiedAt(LocalDateTime modifiedAt) {
 		this.modifiedAt = modifiedAt;
 	}
+
+	@Override
+	public String toString() {
+		return "Role [roleId=" + roleId + ", roleName=" + roleName + ", status=" + status + ", createdBy=" + createdBy
+				+ ", modifiedBy=" + modifiedBy + ", createdAt=" + createdAt + ", modifiedAt=" + modifiedAt + "]";
+	}
+    
+    
+
+
 }
