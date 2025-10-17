@@ -3,9 +3,10 @@ package com.hrms.repository.payroll_repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import com.hrms.entity.EmployeeDeduction;
-
+@Repository
 public interface EmployeeDeductionRepository extends JpaRepository<EmployeeDeduction, Integer>{
 
 	 List<EmployeeDeduction> findByUser_UserId(Integer userId);

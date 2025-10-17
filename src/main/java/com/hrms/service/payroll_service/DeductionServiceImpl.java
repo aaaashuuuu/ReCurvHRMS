@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class DeductionServiceImpl implements IDeductionService {
@@ -29,10 +30,10 @@ public class DeductionServiceImpl implements IDeductionService {
 		return deductionTypeRepository.findAll();
 	}
 
-	@Override
-	public List<Deduction> getDeductionsByDepartmentAndDesignation(Integer departmentId, Integer designationId) {
-		return deductionRepository.findByDepartmentDepartmentIdAndDesignationDesignationId(departmentId, designationId);
-	}
+//	@Override
+//	public List<Deduction> getDeductionsByDepartmentAndDesignation(Integer departmentId, Integer designationId) {
+//		return deductionRepository.findByDepartmentDepartmentIdAndDesignationDesignationId(departmentId, designationId);
+//	}
 
     @Override
     public Deduction saveDeduction(Deduction deduction) {
@@ -94,6 +95,28 @@ public class DeductionServiceImpl implements IDeductionService {
 		// TODO Auto-generated method stub
 		return deductionRepository.findByTypeDeptDesig(type, dept, desig);
 	}
+
+	@Override
+	public List<Deduction> findByDepartmentDepartmentIdAndDesignationDesignationId(Integer departmentId,
+			Integer designationId) {
+		
+		return deductionRepository.findByDepartmentDepartmentIdAndDesignationDesignationId(departmentId, designationId);
+	}
+	
+	  @Override
+	    public List<DeductionDTO> findDeductionsDTOByDepartmentAndDesignation(Integer deptId, Integer desigId) {
+	        List<Deduction> deductions = deductionRepository.findByDepartmentDepartmentIdAndDesignationDesignationId(deptId, desigId);
+	        return deductions.stream().map(d -> new DeductionDTO(
+	                d.getDeductionId(),
+	                d.getDeductionType().getDeductionTypeId(),
+	                d.getDeductionType().getDeductionTypeName(),
+	                d.getDeductionPercentage(),
+	                d.getDepartment().getDepartmentId(),
+	                d.getDepartment().getDepartmentName(),
+	                d.getDesignation().getDesignationId(),
+	                d.getDesignation().getDesignationName()))
+	            .collect(Collectors.toList());
+	    }
 
 
 }

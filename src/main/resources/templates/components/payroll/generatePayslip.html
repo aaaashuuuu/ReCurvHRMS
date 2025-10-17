@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Generate Payslip</title>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css" />
+    
+    <style>
+        .content-wrapper {
+            background-color: #f4f6f9;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        .card-header {
+            background: linear-gradient(90deg, #007bff, #3399ff);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        .form-label {
+            font-weight: 500;
+            color: #333;
+        }
+        .form-control {
+            border-radius: 6px;
+            border: 1px solid #ced4da;
+            box-shadow: none;
+            font-size: 0.95rem;
+        }
+        .form-control:focus {
+            border-color: #80bdff;
+            box-shadow: 0 0 5px rgba(0,123,255,.25);
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            padding: 0.6rem 1.6rem;
+            border-radius: 5px;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .card-footer .btn i {
+            margin-right: 8px;
+        }
+        label {
+            color: #495057;
+        }
+    </style>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+                <h1 class="m-0 text-primary"><i class="fas fa-file-invoice-dollar"></i> Generate Payslip</h1>
+            </div>
+        </div>
+
+        <section class="content">
+            <div class="container-fluid d-flex justify-content-center">
+                <div class="col-md-8">
+                    <div class="card card-primary shadow-sm">
+                        <div class="card-header">
+                            <h3 class="card-title"><i class="fas fa-receipt"></i> Payslip Form</h3>
+                        </div>
+
+                        <form th:action="@{/payroll/generatePayslip}" method="post" th:object="${payslipRequest}">
+                            <div class="card-body">
+
+                                <!-- Employee -->
+                                <div class="form-group">
+                                    <label for="employeeId" class="form-label">Select Employee</label>
+                                    <select th:field="*{employeeId}" id="employeeId" class="form-control" required>
+                                        <option value="">-- Select Employee --</option>
+                                        <option th:each="emp : ${employeeList}" th:value="${emp.userId}" th:text="${emp.firstName + ' ' + emp.lastName}"></option>
+                                    </select>
+                                </div>
+
+                                <!-- Month -->
+                                <div class="form-group">
+                                    <label for="month" class="form-label">Select Month</label>
+                                    <select th:field="*{month}" id="month" class="form-control" required>
+                                        <option value="">-- Select Month --</option>
+                                        <option th:each="m : ${#numbers.sequence(1,12)}"
+                                                th:value="${m}" th:text="${#dates.format(#dates.create(0,m,1), 'MMMM')}"></option>
+                                    </select>
+                                </div>
+
+                                <!-- Year -->
+                                <div class="form-group">
+                                    <label for="year" class="form-label">Select Year</label>
+                                    <select th:field="*{year}" id="year" class="form-control" required>
+                                        <option value="">-- Select Year --</option>
+                                        <option th:each="y : ${#numbers.sequence(currentYear - 5, currentYear + 5)}"
+                                                th:value="${y}" th:text="${y}"></option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="card-footer text-right">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-download"></i> Generate Payslip
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script src="/plugins/jquery/jquery.min.js"></script>
+
+<script src="/dist/js/adminlte.min.js"></script>
+</body>
+</html>

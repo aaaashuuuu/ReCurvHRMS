@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Employee Salary</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .salary-save-btn {
+            margin-top: 30px;
+            padding: 12px 35px;
+            background: #ff6e33;
+            color: #fff;
+            border: none;
+            border-radius: 7px;
+            font-size: 17px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            float: right;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .salary-save-btn:hover {
+            background: #f96319;
+        }
+    </style>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+
+<div class="container mt-4">
+    <h1>Employee Salary Setup</h1>
+    <form th:action="@{/payroll/employeeSalary/addEmployeeSalary}" method="post">
+
+        <!-- Employee selection -->
+        <div class="mb-3">
+            <label class="form-label">Select Employee</label>
+            <select id="employeeSelect" name="employeeId" class="form-select" required>
+                <option value="">-- Select Employee --</option>
+                <option th:each="emp : ${employeeList}" th:value="${emp.userId}"
+                        th:text="${emp.firstName + ' ' + emp.lastName}"
+                        th:selected="${emp.userId == employeeId}"></option>
+            </select>
+        </div>
+
+        <!-- Total Salary -->
+        <div class="mb-3">
+            <label class="form-label">Total Salary</label>
+            <input id="totalSalaryInput" type="number" name="totalSalary" class="form-control"
+                   th:value="${totalSalary}" required autocomplete="off" />
+        </div>
+
+        <!-- Earnings -->
+        <h6>Earnings</h6>
+        <div id="earningsSection"></div>
+
+        <!-- Deductions -->
+        <h6 class="mt-3">Deductions</h6>
+        <div id="deductionsSection"></div>
+
+        <!-- Net Salary -->
+        <div class="mt-3" hidden>
+            <label class="form-label">Net Salary</label>
+            <input id="netSalaryField" type="text" class="form-control" name="netSalary" readonly th:value="${netSalary}" />
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary salary-save-btn">Save Salary</button>
+        </div>
+
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+let earningsData = [];
+let deductionsData = [];
+
+$('#employeeSelect').change(function() {
+    let employeeId = $(this).val();
+    if (!employeeId) {
+        $('#earningsSection').empty();
+        $('#deductionsSection').empty();
+        return;
+    }
+
+    $.ajax({
+        url: '/payroll/employeeSalary/ajaxData',
+        data: { employeeId: employeeId },
+        success: function(data) {
+            earningsData = data.earnings;
+            deductionsData = data.deductions;
+            renderEarningsDeductions(earningsData, deductionsData);
+            recalculate();
+        },
+        error: function() {
+            alert('Error fetching salary data');
+        }
+    });
+});
+
+function renderEarningsDeductions(earnings, deductions) {
+    const earningsSection = $('#earningsSection');
+    const deductionsSection = $('#deductionsSection');
+
+    earningsSection.empty();
+    deductionsSection.empty();
+
+    earnings.forEach(er => {
+        const erHtml = `<div class="salary-type-row d-flex justify-content-between mb-2">
+            <div class="salary-type-label">${er.typeName} (${er.percentage}%)</div>
+            <input class="salary-type-value modalEarningField form-control w-25" readonly
+                   type="text" value="0" data-percent="${er.percentage}" />
+        </div>`;
+        earningsSection.append(erHtml);
+    });
+
+    deductions.forEach(dr => {
+        const drHtml = `<div class="salary-type-row d-flex justify-content-between mb-2">
+            <div class="salary-type-label">${dr.typeName} (${dr.percentage}%)</div>
+            <input class="salary-type-value modalDeductionField form-control w-25" readonly
+                   type="text" value="0" data-percent="${dr.percentage}" />
+        </div>`;
+        deductionsSection.append(drHtml);
+    });
+}
+
+$('#totalSalaryInput').on('input', function() {
+    recalculate();
+});
+
+function recalculate() {
+    let totalSalary = parseFloat($('#totalSalaryInput').val()) || 0;
+    let totalEarnings = 0;
+    let totalDeductions = 0;
+
+    $('.modalEarningField').each(function() {
+        let percent = parseFloat($(this).data('percent')) || 0;
+        let amount = totalSalary * percent / 100;
+        $(this).val(amount.toFixed(2));
+        totalEarnings += amount;
+    });
+
+    $('.modalDeductionField').each(function() {
+        let percent = parseFloat($(this).data('percent')) || 0;
+        let amount = totalSalary * percent / 100;
+        $(this).val(amount.toFixed(2));
+        totalDeductions += amount;
+    });
+
+    let netSalary = totalSalary + totalEarnings - totalDeductions;
+    $('#netSalaryField').val(netSalary.toFixed(2));
+}
+
+// Optionally trigger change on page load
+$(document).ready(function() {
+    $('#employeeSelect').trigger('change');
+});
+</script>
+
+</body>
+</html>

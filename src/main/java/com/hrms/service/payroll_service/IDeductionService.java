@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface IDeductionService {
 	   List<DeductionType> getAllDeductionTypes();
-	    List<Deduction> getDeductionsByDepartmentAndDesignation(Integer departmentId, Integer designationId);
+//	    List<Deduction> getDeductionsByDepartmentAndDesignation(Integer departmentId, Integer designationId);
 	    Deduction saveDeduction(Deduction deduction);
 	    Deduction updateDeduction(Deduction deduction);
 	    void deleteDeduction(Integer deductionId);
@@ -26,6 +26,9 @@ public interface IDeductionService {
 		public List<DeductionDTO> mapDeductionsToDTO(List<Deduction> allDeductions);
 		
 		Optional<Deduction> findByTypeDeptDesig(DeductionType type, Department dept, Designation desig);
+		
+		List<Deduction> findByDepartmentDepartmentIdAndDesignationDesignationId(Integer departmentId,Integer designationId);
+		List<DeductionDTO> findDeductionsDTOByDepartmentAndDesignation(Integer deptId, Integer desigId);
 
 }
 

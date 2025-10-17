@@ -6,12 +6,14 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
+import com.hrms.dto.payroll_dto.DeductionDTO;
 import com.hrms.entity.Deduction;
 import com.hrms.entity.DeductionType;
 import com.hrms.entity.Department;
 import com.hrms.entity.Designation;
-
+@Repository
 public interface DeductionRepository extends JpaRepository<Deduction, Integer> {
 
 	List<Deduction> findByDepartmentDepartmentIdAndDesignationDesignationId(Integer deptId, Integer desigId);
@@ -25,4 +27,7 @@ public interface DeductionRepository extends JpaRepository<Deduction, Integer> {
     Optional<Deduction> findByTypeDeptDesig(@Param("type") DeductionType type,
                                             @Param("dept") Department dept,
                                             @Param("desig") Designation desig);
+
+
+//	List<DeductionDTO> mapDeductionsToDTO(List<Deduction> deductions);
 }

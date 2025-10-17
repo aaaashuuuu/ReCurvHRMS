@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EarningServiceImpl implements IEarningService {
@@ -29,10 +30,10 @@ public class EarningServiceImpl implements IEarningService {
         return earningTypeRepository.findAll();
     }
 
-    @Override
-    public List<Earning> getEarningsByDepartmentAndDesignation(Integer departmentId, Integer designationId) {
-        return earningRepository.findByDepartmentDepartmentIdAndDesignationDesignationId(departmentId, designationId);
-    }
+//    @Override
+//    public List<Earning> getEarningsByDepartmentAndDesignation(Integer departmentId, Integer designationId) {
+//        return earningRepository.findByDepartmentDepartmentIdAndDesignationDesignationId(departmentId, designationId);
+//    }
 
     @Override
     public Earning saveEarning(Earning earning) {
@@ -92,6 +93,29 @@ public class EarningServiceImpl implements IEarningService {
 	public Optional<Earning> findByTypeDeptDesig(EarningType type, Department dept, Designation desig) {
 		return earningRepository.findByTypeDeptDesig(type, dept, desig);
 	}
+
+	@Override
+	public List<Earning> findByDepartmentDepartmentIdAndDesignationDesignationId(Integer departmentId,
+			Integer designationId) {
+		// TODO Auto-generated method stub
+		 return earningRepository.findByDepartmentDepartmentIdAndDesignationDesignationId(departmentId, designationId);
+		   
+	}
+	
+	  @Override
+	    public List<EarningDTO> findEarningsDTOByDepartmentAndDesignation(Integer deptId, Integer desigId) {
+	        List<Earning> earnings = earningRepository.findByDepartmentDepartmentIdAndDesignationDesignationId(deptId, desigId);
+	        return earnings.stream().map(e -> new EarningDTO(
+	                e.getEarningId(),
+	                e.getEarningType().getEarningTypeId(),
+	                e.getEarningType().getEarningTypeName(),
+	                e.getEarningPercentage(),
+	                e.getDepartment().getDepartmentId(),
+	                e.getDepartment().getDepartmentName(),
+	                e.getDesignation().getDesignationId(),
+	                e.getDesignation().getDesignationName()))
+	            .collect(Collectors.toList());
+	    }
 
 
 	 

@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-
 public class Payslip {
 
 	@Id
@@ -89,4 +88,6 @@ public class Payslip {
 		return "Payslip [payslipId=" + payslipId + ", month=" + month + ", year=" + year + ", generatedAt="
 				+ generatedAt + ", payslipPath=" + payslipPath + ", user=" + user + "]";
 	}
+
+
 }
